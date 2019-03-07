@@ -139,6 +139,7 @@ describe('reactTreeWalker', () => {
           componentWillMount() {
             this.setState({ foo: 'bar' })
             this.setState((state, props) => ({
+              /* eslint-disable-next-line react/no-unused-state */
               other: `I am ${props.value} ${state.foo}`,
             }))
           }

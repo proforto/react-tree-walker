@@ -59,8 +59,8 @@ const getChildren = element =>
   element.props && element.props.children
     ? element.props.children
     : element.children
-      ? element.children
-      : undefined
+    ? element.children
+    : undefined
 
 // Preact uses "nodeName", React uses "type"
 const getType = element => element.type || element.nodeName
@@ -169,12 +169,10 @@ export default function reactTreeWalker(
                       // If its a react Children collection we need to breadth-first
                       // traverse each of them, and pMapSeries allows us to do a
                       // depth-first traversal that respects Promises. Thanks @sindresorhus!
-                      return pMapSeries(
-                        children,
-                        child =>
-                          child
-                            ? recursive(child, childContext)
-                            : Promise.resolve(),
+                      return pMapSeries(children, child =>
+                        child
+                          ? recursive(child, childContext)
+                          : Promise.resolve(),
                       )
                         .then(innerResolve, reject)
                         .catch(reject)
@@ -258,7 +256,8 @@ export default function reactTreeWalker(
                 // Note: preact API also allows props and state to be referenced
                 // as arguments to the render func, so we pass them through
                 // here
-                () => instance.render(instance.props, instance.state),
+                () =>
+                  instance.render(instance.props, instance.state, childContext),
                 instance,
                 currentContext,
                 childContext,

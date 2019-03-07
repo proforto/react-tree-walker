@@ -4,15 +4,17 @@ const packageJson = require('./package.json')
 
 process.env.BABEL_ENV = 'production'
 
+const packageName = packageJson.name.replace(/@proforto\//, '')
+
 module.exports = {
   external: ['react'],
   input: 'src/index.js',
   output: {
-    file: `dist/${packageJson.name}.js`,
+    file: `dist/${packageName}.js`,
     format: 'cjs',
     sourcemap: true,
     name: changeCase
-      .titleCase(packageJson.name.replace(/-/g, ' '))
+      .titleCase(packageName.replace(/-/g, ' '))
       .replace(/ /g, ''),
   },
   plugins: [
